@@ -1,23 +1,27 @@
 package info.thanhnd.demo.dto.request;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.*;
 import lombok.*;
-import org.hibernate.validator.constraints.UniqueElements;
+import lombok.experimental.FieldDefaults;
+
+import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserRequest {
     @NotBlank
-    private String name;
+    String name;
 
     @Email(message = "incorrect email format")
     @NotBlank(message = "Email cannot be blank")
-    private String email;
+    String email;
 
-    @Size(min = 6, message = "Password at least 6 character")
-    private String password;
+    @Size(min = 6, message = "PASSWORD_INVALID")
+    String password;
+
+    Set<String> roles;
 }

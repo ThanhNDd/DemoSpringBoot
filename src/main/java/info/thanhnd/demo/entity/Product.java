@@ -2,41 +2,39 @@ package info.thanhnd.demo.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Entity
-@Table(name = "users")
+@Table(name = "products")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class User {
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @NotNull
+    int categoryId;
+
+    @NotBlank
     String name;
 
-    @NotBlank(message = "Email cannot be blank")
-    @Column(unique = true)
-    String email;
-
-    @Size(min = 6, message = "PASSWORD_INVALID")
-    String password;
+    @NotNull
+    Float price;
 
     @CreationTimestamp
     LocalDateTime createdDate;
 
-    @CreationTimestamp
+    @UpdateTimestamp
     LocalDateTime updatedDate;
-
-    Set<String> roles;
 
 }
